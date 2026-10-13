@@ -1,4 +1,4 @@
-import { Component, signal, inject , OnInit} from '@angular/core';
+import { Component, signal, inject} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SupabaseService } from './services/supabase';
 
@@ -10,5 +10,4 @@ import { SupabaseService } from './services/supabase';
 })
 export class App{
   protected readonly title = signal('JobTrack');
-  supabase = inject(SupabaseService);
 }
