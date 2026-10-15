@@ -11,7 +11,7 @@
       </div>
     </header>
 
-    <form class="login-form">
+    <form class="login-form" [formGroup]="loginForm">
       <div class="form-top">
         <label for="email">E-Mail</label>
         <input id="email" type="email" [formControl]="emailAdress" placeholder="deine@email.de" />
@@ -32,8 +32,6 @@
           @if (password.touched) {
             @if (password.hasError('required')) {
               <p>Bitte gib ein Passwort ein.</p>
-            } @else if (password.hasError('minlength')) {
-              <p>Das Passwort muss mindestens 8 Zeichen enthalten.</p>
             }
           }
         </div>

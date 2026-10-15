@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -15,7 +15,6 @@ export class Login {
 
   password = new FormControl('', [
     Validators.required,
-    Validators.minLength(8)
   ]);
 
   loginForm = new FormGroup({
