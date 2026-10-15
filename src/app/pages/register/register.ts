@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -8,5 +9,29 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './register.html',
 })
 export class Register {
-  emailAdress = new FormControl('');
+  emailAdress = new FormControl('', [
+    Validators.required,
+    Validators.email
+  ]);
+
+  password = new FormControl('', [
+    Validators.required,
+    Validators.minLength(8)
+  ]);
+
+  confirmPassword = new FormControl('',[
+    Validators.required,
+    Validators.minLength(8)
+  ]);
+
+  userName = new FormControl('', [
+    Validators.required,
+  ]);
+
+  registerForm = new FormGroup({
+    userName : this.userName,
+    emailAdress : this.emailAdress,
+    password : this.password,
+    confirmPassword : this.confirmPassword
+  });
 }

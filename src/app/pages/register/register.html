@@ -1,1 +1,69 @@
-<label for="email">E-Mail</label> <input id="email" type="email" [formControl]="emailAdress" />
+<main class="auth-page">
+  <section class="auth-card">
+    <header class="auth-header">
+      <div>
+        <img src="" alt="" />
+        <h1>Jobtracker</h1>
+      </div>
+      <div>
+        <h2>Konto erstelllen</h2>
+        <p>Erstelle ein neues Konto, um deine Bewerbungen zu verwalten.</p>
+      </div>
+    </header>
+
+    <form class="auth-form" [formGroup]="registerForm">
+      <label for="name">Name</label> <input id="name" type="text" [formControl]="userName" />
+      <div class="error-container">
+        @if (userName.touched) {
+          @if (userName.hasError('required')) {
+            <p>Bitte gib deinen Benutzernamen ein.</p>
+          }
+        }
+      </div>
+      <label for="email">E-Mail</label>
+      <input id="email" type="email" [formControl]="emailAdress" />
+      <div class="error-container">
+        @if (emailAdress.touched) {
+          @if (emailAdress.hasError('required')) {
+            <p>Bitte gib deine E-Mail-Adresse ein.</p>
+          } @else if (emailAdress.hasError('email')) {
+            <p>Bitte gib eine gültige E-Mail-Adresse ein.</p>
+          }
+        }
+      </div>
+      <label for="password">Passwort</label>
+      <input id="password" type="password" [formControl]="password" />
+      <div class="error-container">
+        @if (password.touched) {
+          @if (password.hasError('required')) {
+            <p>Bitte gibt ein Passwort ein.</p>
+          } @else if (password.hasError('minlength')) {
+            <p>Das Passwort muss mindestens 8 Zeichen enthalten.</p>
+          }
+        }
+      </div>
+      <label for="confirmPassword">Passwort bestätigen</label>
+      <input id="confirmPassword" type="password" [formControl]="confirmPassword" />
+      <div class="error-container">
+        @if (confirmPassword.touched) {
+          @if (password.value !== confirmPassword.value) {
+            <p>Die Passwörter stimmen nicht überein.</p>
+          } @else if (confirmPassword.hasError('required')) {
+            <p>Bitte bestätige dein Passwort.</p>
+          }
+        }
+      </div>
+      <button
+        type="submit"
+        [disabled]="registerForm.invalid || password.value !== confirmPassword.value"
+      >
+        Registrieren
+      </button>
+    </form>
+
+    <footer class="auth-footer">
+      <p>Schon ein Konto?</p>
+      <a href="">Jetzt anmelden</a>
+    </footer>
+  </section>
+</main>

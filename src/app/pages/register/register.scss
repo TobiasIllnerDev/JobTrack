@@ -1,0 +1,10 @@
+.error-container {
+  min-height: 20px;
+  color: red;
+  font-size: 12px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
