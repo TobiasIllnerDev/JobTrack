@@ -46,19 +46,14 @@
       <input id="confirmPassword" type="password" [formControl]="confirmPassword" />
       <div class="error-container">
         @if (confirmPassword.touched) {
-          @if (password.value !== confirmPassword.value) {
-            <p>Die Passwörter stimmen nicht überein.</p>
-          } @else if (confirmPassword.hasError('required')) {
+          @if (confirmPassword.hasError('required')) {
             <p>Bitte bestätige dein Passwort.</p>
+          } @else if (registerForm.hasError('passwordMismatch')) {
+            <p>Die Passwörter stimmen nicht überein.</p>
           }
         }
       </div>
-      <button
-        type="submit"
-        [disabled]="registerForm.invalid || password.value !== confirmPassword.value"
-      >
-        Registrieren
-      </button>
+      <button type="submit" [disabled]="registerForm.invalid">Registrieren</button>
     </form>
 
     <footer class="auth-footer">

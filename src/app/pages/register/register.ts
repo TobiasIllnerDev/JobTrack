@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
 
 
 @Component({
@@ -33,5 +33,23 @@ export class Register {
     emailAdress : this.emailAdress,
     password : this.password,
     confirmPassword : this.confirmPassword
-  });
+  },
+  {
+    validators: passwordMatchValidator
+  }
+  );
+}
+
+function passwordMatchValidator(
+  control: AbstractControl
+): ValidationErrors | null {
+
+  const password = control.get('password')?.value;
+  const confirmPassword = control.get('confirmPassword')?.value;
+
+  if (password !== confirmPassword) {
+    return { passwordMismatch: true };
+  }
+
+  return null;
 }
