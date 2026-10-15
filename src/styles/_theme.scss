@@ -1,0 +1,60 @@
+// ========================================
+// JOBTRACK - LIGHT MODE
+// ========================================
+
+:root {
+
+  // Hintergrund
+  --bg-primary: #f5f8fc;
+  --bg-card: #ffffff;
+  --bg-input: #edf3f8;
+
+  // Text
+  --text-primary: #172438;
+  --text-secondary: #64748b;
+
+  // Hauptfarben
+  --color-primary: #087f79;
+  --color-accent: #d86d55;
+
+  // Rahmen
+  --color-border: #dce5ee;
+
+  // Statusfarben
+  --status-success: #40c994;
+  --status-warning: #e9ae42;
+  --status-error: #e87979;
+  --status-interview: #6382de;
+
+}
+
+
+// ========================================
+// JOBTRACK - DARK MODE
+// ========================================
+
+[data-theme='dark'] {
+
+  // Hintergrund
+  --bg-primary: #0b1220;
+  --bg-card: #151f30;
+  --bg-input: #202d40;
+
+  // Text
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+
+  // Hauptfarben
+  --color-primary: #42d9c8;
+  --color-accent: #ff9b85;
+
+  // Rahmen
+  --color-border: #304056;
+
+  // Statusfarben
+  --status-success: #239b78;
+  --status-warning: #f4c66a;
+  --status-error: #c75b68;
+  --status-interview: #91a8ff;
+
+}

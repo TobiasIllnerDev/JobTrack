@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+@use './styles/theme';
+@use './styles/auth';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  min-width: 300px;
+
+  font-family:
+    'Inter',
+    'Segoe UI',
+    Arial,
+    sans-serif;
+
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}

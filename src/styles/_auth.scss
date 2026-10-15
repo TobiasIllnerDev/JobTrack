@@ -1,0 +1,497 @@
+// ========================================
+// JOBTRACK NOVA
+// AUTHENTICATION DESIGN
+// Login & Registration
+// ========================================
+
+
+// ----------------------------------------
+// SCSS VARIABLES
+// ----------------------------------------
+
+$max-layout-width: 1440px;
+$max-card-width: 440px;
+
+$radius-card: 18px;
+$radius-input: 9px;
+$radius-button: 9px;
+
+$mobile-breakpoint: 600px;
+$small-mobile-breakpoint: 360px;
+
+
+// ----------------------------------------
+// MIXINS
+// ----------------------------------------
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin smooth-transition {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+// ========================================
+// SHARED AUTH LAYOUT
+// ========================================
+
+// Erzeugt Styles für:
+// .login-page / .login-card / ...
+// .auth-page  / .auth-card  / ...
+
+@each $prefix in login, auth {
+
+  // --------------------------------------
+  // PAGE
+  // --------------------------------------
+
+  .#{$prefix}-page {
+    @include flex-center;
+
+    width: 100%;
+    max-width: $max-layout-width;
+
+    min-height: 100vh;
+    min-height: 100svh;
+
+    margin-inline: auto;
+    padding: 32px 24px;
+
+    box-sizing: border-box;
+
+    color: var(--text-primary);
+
+    background:
+      radial-gradient(
+        circle at 50% 15%,
+        color-mix(
+          in srgb,
+          var(--color-primary) 9%,
+          transparent
+        ),
+        transparent 55%
+      ),
+      var(--bg-primary);
+
+
+    // ------------------------------------
+    // CARD
+    // ------------------------------------
+
+    .#{$prefix}-card {
+      display: flex;
+      flex-direction: column;
+
+      width: 100%;
+      max-width: $max-card-width;
+
+      padding: 36px;
+
+      background: var(--bg-card);
+
+      border: 1px solid var(--color-border);
+      border-radius: $radius-card;
+
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.14);
+
+      box-sizing: border-box;
+
+      @include smooth-transition;
+
+
+      // ----------------------------------
+      // HEADER
+      // ----------------------------------
+
+      .#{$prefix}-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        gap: 18px;
+
+        margin-bottom: 26px;
+
+        text-align: center;
+
+
+        // Logo + Brand
+        > div:first-child {
+          @include flex-center;
+
+          gap: 10px;
+
+          img {
+            width: 28px;
+            height: 28px;
+
+            object-fit: contain;
+
+            &[src=''] {
+              display: none;
+            }
+          }
+
+          h1 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            margin: 0;
+
+            font-size: 1.35rem;
+            font-weight: 750;
+            letter-spacing: -0.5px;
+
+            color: var(--text-primary);
+
+            // Vorläufiges Markensymbol
+            &::before {
+              content: '◆';
+
+              @include flex-center;
+
+              width: 32px;
+              height: 32px;
+
+              border-radius: 9px;
+
+              color: var(--bg-primary);
+              background: var(--color-primary);
+
+              font-size: 1rem;
+            }
+          }
+        }
+
+
+        // Titel + Beschreibung
+        > div:last-child {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          gap: 7px;
+
+          h2 {
+            margin: 0;
+
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+
+            color: var(--text-primary);
+          }
+
+          p {
+            margin: 0;
+
+            font-size: 0.85rem;
+            line-height: 1.6;
+
+            color: var(--text-secondary);
+          }
+        }
+      }
+
+
+      // ----------------------------------
+      // FORM
+      // ----------------------------------
+
+      .#{$prefix}-form {
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+        min-width: 0;
+
+
+        // Labels
+        label {
+          display: block;
+
+          margin-top: 6px;
+          margin-bottom: 7px;
+
+          font-size: 0.83rem;
+          font-weight: 600;
+
+          color: var(--text-primary);
+        }
+
+
+        // Inputs
+        input {
+          display: block;
+
+          width: 100%;
+          min-width: 0;
+          height: 44px;
+
+          padding: 0 13px;
+
+          background: var(--bg-input);
+          color: var(--text-primary);
+
+          border: 1px solid var(--color-border);
+          border-radius: $radius-input;
+
+          font-family: inherit;
+          font-size: 0.9rem;
+
+          outline: none;
+
+          @include smooth-transition;
+
+
+          &::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.8;
+          }
+
+
+          &:hover {
+            border-color: var(--color-primary);
+          }
+
+
+          &:focus {
+            border-color: var(--color-primary);
+
+            box-shadow:
+              0 0 0 3px
+              color-mix(
+                in srgb,
+                var(--color-primary) 16%,
+                transparent
+              );
+          }
+        }
+
+
+        // --------------------------------
+        // ERROR MESSAGES
+        // --------------------------------
+
+        .error-container {
+          min-height: 22px;
+
+          margin-top: 4px;
+          margin-bottom: 8px;
+
+          p {
+            margin: 0;
+
+            color: var(--status-error);
+
+            font-size: 0.75rem;
+            line-height: 1.5;
+          }
+        }
+
+
+        // --------------------------------
+        // BUTTON
+        // --------------------------------
+
+        button {
+          @include flex-center;
+          @include smooth-transition;
+
+          width: 100%;
+          min-height: 46px;
+
+          margin-top: 12px;
+          padding: 12px 18px;
+
+          border: none;
+          border-radius: $radius-button;
+
+          background: var(--color-primary);
+          color: var(--bg-primary);
+
+          font-family: inherit;
+          font-size: 0.9rem;
+          font-weight: 700;
+
+          cursor: pointer;
+
+
+          &:hover:not(:disabled) {
+            transform: translateY(-2px);
+
+            box-shadow:
+              0 6px 20px
+              color-mix(
+                in srgb,
+                var(--color-primary) 25%,
+                transparent
+              );
+          }
+
+
+          &:active:not(:disabled) {
+            transform: translateY(0);
+          }
+
+
+          &:focus-visible {
+            outline: 3px solid var(--color-primary);
+            outline-offset: 3px;
+          }
+
+
+          &:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+          }
+        }
+
+
+        // Login hat zusätzliche Container
+        .form-top,
+        .form-bottom {
+          width: 100%;
+          min-width: 0;
+        }
+      }
+
+
+      // ----------------------------------
+      // FOOTER
+      // ----------------------------------
+
+      .#{$prefix}-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        gap: 5px;
+
+        margin-top: 22px;
+
+        text-align: center;
+
+        font-size: 0.82rem;
+
+
+        p {
+          margin: 0;
+          color: var(--text-secondary);
+        }
+
+
+        a {
+          color: var(--color-primary);
+
+          font-weight: 600;
+          text-decoration: none;
+
+          @include smooth-transition;
+
+
+          &:hover {
+            text-decoration: underline;
+          }
+
+
+          &:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 3px;
+          }
+        }
+      }
+    }
+
+
+    // ====================================
+    // TABLETS & SMALL SCREENS
+    // ====================================
+
+    @media (max-width: $mobile-breakpoint) {
+      padding: 20px 14px;
+
+      .#{$prefix}-card {
+        padding: 28px 24px;
+
+        .#{$prefix}-header {
+          margin-bottom: 22px;
+
+          > div:last-child {
+            h2 {
+              font-size: 1.3rem;
+            }
+          }
+        }
+      }
+    }
+
+
+    // ====================================
+    // SMALL PHONES (300px+)
+    // ====================================
+
+    @media (max-width: $small-mobile-breakpoint) {
+      padding: 12px;
+
+      .#{$prefix}-card {
+        padding: 22px 16px;
+        border-radius: 14px;
+
+        .#{$prefix}-header {
+          gap: 14px;
+
+          > div:first-child {
+            h1 {
+              font-size: 1.15rem;
+            }
+          }
+
+          > div:last-child {
+            h2 {
+              font-size: 1.15rem;
+            }
+
+            p {
+              font-size: 0.78rem;
+            }
+          }
+        }
+
+        .#{$prefix}-form {
+          input {
+            font-size: 0.85rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// ========================================
+// ACCESSIBILITY
+// ========================================
+
+@media (prefers-reduced-motion: reduce) {
+  .login-page,
+  .auth-page {
+    *,
+    *::before,
+    *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+}
