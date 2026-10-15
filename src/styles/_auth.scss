@@ -1,57 +1,73 @@
 // ========================================
 // JOBTRACK NOVA
-// AUTHENTICATION DESIGN
+// Authentication Design
 // Login & Registration
 // ========================================
 
 
-// ----------------------------------------
-// SCSS VARIABLES
-// ----------------------------------------
+// ========================================
+// 1. SCSS VARIABLES
+// ========================================
 
+// Layout
 $max-layout-width: 1440px;
 $max-card-width: 440px;
 
+// Border Radius
 $radius-card: 18px;
 $radius-input: 9px;
 $radius-button: 9px;
 
+// Responsive Breakpoints
+$tablet-breakpoint: 768px;
 $mobile-breakpoint: 600px;
 $small-mobile-breakpoint: 360px;
 
+// Transitions
+$transition-speed: 0.2s;
 
-// ----------------------------------------
-// MIXINS
-// ----------------------------------------
 
+// ========================================
+// 2. MIXINS
+// ========================================
+
+// Flexbox-Zentrierung
 @mixin flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+// Sanfte Übergänge
 @mixin smooth-transition {
   transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+    background-color $transition-speed ease,
+    color $transition-speed ease,
+    border-color $transition-speed ease,
+    box-shadow $transition-speed ease,
+    transform $transition-speed ease;
+}
+
+// Einheitlicher Fokus-Rahmen
+@mixin focus-ring {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 
 // ========================================
-// SHARED AUTH LAYOUT
+// 3. SHARED AUTH STYLES
 // ========================================
 
-// Erzeugt Styles für:
-// .login-page / .login-card / ...
-// .auth-page  / .auth-card  / ...
+// Erstellt die Styles automatisch für:
+// login-page / login-card / ...
+// auth-page  / auth-card  / ...
 
 @each $prefix in login, auth {
 
-  // --------------------------------------
+  // ======================================
   // PAGE
-  // --------------------------------------
+  // ======================================
 
   .#{$prefix}-page {
     @include flex-center;
@@ -65,26 +81,24 @@ $small-mobile-breakpoint: 360px;
     margin-inline: auto;
     padding: 32px 24px;
 
-    box-sizing: border-box;
-
     color: var(--text-primary);
 
     background:
       radial-gradient(
-        circle at 50% 15%,
+        ellipse at 50% 15%,
         color-mix(
           in srgb,
-          var(--color-primary) 9%,
+          var(--color-primary) 12%,
           transparent
         ),
-        transparent 55%
+        transparent 60%
       ),
       var(--bg-primary);
 
 
-    // ------------------------------------
+    // ====================================
     // CARD
-    // ------------------------------------
+    // ====================================
 
     .#{$prefix}-card {
       display: flex;
@@ -93,7 +107,7 @@ $small-mobile-breakpoint: 360px;
       width: 100%;
       max-width: $max-card-width;
 
-      padding: 36px;
+      padding: 34px;
 
       background: var(--bg-card);
 
@@ -101,16 +115,15 @@ $small-mobile-breakpoint: 360px;
       border-radius: $radius-card;
 
       box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.14);
-
-      box-sizing: border-box;
+        0 12px 35px rgba(0, 0, 0, 0.06),
+        0 25px 65px rgba(0, 0, 0, 0.07);
 
       @include smooth-transition;
 
 
-      // ----------------------------------
+      // ==================================
       // HEADER
-      // ----------------------------------
+      // ==================================
 
       .#{$prefix}-header {
         display: flex;
@@ -119,62 +132,54 @@ $small-mobile-breakpoint: 360px;
 
         gap: 18px;
 
-        margin-bottom: 26px;
+        margin-bottom: 24px;
 
         text-align: center;
 
 
-        // Logo + Brand
+        // ------------------------------
+        // LOGO + BRAND
+        // ------------------------------
+
         > div:first-child {
           @include flex-center;
 
           gap: 10px;
 
+          // JobTrack Logo
           img {
-            width: 28px;
-            height: 28px;
+            display: block;
+
+            width: 46px;
+            height: 46px;
 
             object-fit: contain;
+            flex-shrink: 0;
 
-            &[src=''] {
-              display: none;
+            @include smooth-transition;
+
+            &:hover {
+              transform: scale(1.06);
             }
           }
 
+          // JobTrack Schriftzug
           h1 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
             margin: 0;
 
-            font-size: 1.35rem;
+            font-size: 1.55rem;
             font-weight: 750;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.6px;
 
             color: var(--text-primary);
-
-            // Vorläufiges Markensymbol
-            &::before {
-              content: '◆';
-
-              @include flex-center;
-
-              width: 32px;
-              height: 32px;
-
-              border-radius: 9px;
-
-              color: var(--bg-primary);
-              background: var(--color-primary);
-
-              font-size: 1rem;
-            }
           }
         }
 
 
-        // Titel + Beschreibung
+        // ------------------------------
+        // TITLE + DESCRIPTION
+        // ------------------------------
+
         > div:last-child {
           display: flex;
           flex-direction: column;
@@ -185,14 +190,16 @@ $small-mobile-breakpoint: 360px;
           h2 {
             margin: 0;
 
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.4px;
 
             color: var(--text-primary);
           }
 
           p {
+            max-width: 330px;
+
             margin: 0;
 
             font-size: 0.85rem;
@@ -204,9 +211,9 @@ $small-mobile-breakpoint: 360px;
       }
 
 
-      // ----------------------------------
+      // ==================================
       // FORM
-      // ----------------------------------
+      // ==================================
 
       .#{$prefix}-form {
         display: flex;
@@ -216,12 +223,15 @@ $small-mobile-breakpoint: 360px;
         min-width: 0;
 
 
-        // Labels
+        // ------------------------------
+        // LABELS
+        // ------------------------------
+
         label {
           display: block;
 
-          margin-top: 6px;
-          margin-bottom: 7px;
+          margin-top: 3px;
+          margin-bottom: 6px;
 
           font-size: 0.83rem;
           font-weight: 600;
@@ -230,7 +240,10 @@ $small-mobile-breakpoint: 360px;
         }
 
 
-        // Inputs
+        // ------------------------------
+        // INPUT FIELDS
+        // ------------------------------
+
         input {
           display: block;
 
@@ -254,17 +267,20 @@ $small-mobile-breakpoint: 360px;
           @include smooth-transition;
 
 
+          // Placeholder
           &::placeholder {
             color: var(--text-secondary);
             opacity: 0.8;
           }
 
 
-          &:hover {
+          // Hover
+          &:hover:not(:disabled) {
             border-color: var(--color-primary);
           }
 
 
+          // Focus
           &:focus {
             border-color: var(--color-primary);
 
@@ -272,22 +288,29 @@ $small-mobile-breakpoint: 360px;
               0 0 0 3px
               color-mix(
                 in srgb,
-                var(--color-primary) 16%,
+                var(--color-primary) 15%,
                 transparent
               );
+          }
+
+
+          // Disabled
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
           }
         }
 
 
-        // --------------------------------
+        // ==================================
         // ERROR MESSAGES
-        // --------------------------------
+        // ==================================
 
         .error-container {
-          min-height: 22px;
+          min-height: 18px;
 
-          margin-top: 4px;
-          margin-bottom: 8px;
+          margin-top: 3px;
+          margin-bottom: 3px;
 
           p {
             margin: 0;
@@ -300,9 +323,9 @@ $small-mobile-breakpoint: 360px;
         }
 
 
-        // --------------------------------
+        // ==================================
         // BUTTON
-        // --------------------------------
+        // ==================================
 
         button {
           @include flex-center;
@@ -311,14 +334,14 @@ $small-mobile-breakpoint: 360px;
           width: 100%;
           min-height: 46px;
 
-          margin-top: 12px;
+          margin-top: 10px;
           padding: 12px 18px;
 
-          border: none;
-          border-radius: $radius-button;
-
           background: var(--color-primary);
-          color: var(--bg-primary);
+          color: var(--text-on-primary);
+
+          border: 1px solid transparent;
+          border-radius: $radius-button;
 
           font-family: inherit;
           font-size: 0.9rem;
@@ -327,6 +350,7 @@ $small-mobile-breakpoint: 360px;
           cursor: pointer;
 
 
+          // Hover
           &:hover:not(:disabled) {
             transform: translateY(-2px);
 
@@ -340,25 +364,39 @@ $small-mobile-breakpoint: 360px;
           }
 
 
+          // Active
           &:active:not(:disabled) {
             transform: translateY(0);
+            box-shadow: none;
           }
 
 
+          // Keyboard Focus
           &:focus-visible {
-            outline: 3px solid var(--color-primary);
-            outline-offset: 3px;
+            @include focus-ring;
           }
 
 
+          // Disabled
           &:disabled {
-            opacity: 0.45;
+            background: var(--bg-input);
+            color: var(--text-secondary);
+
+            border-color: var(--color-border);
+
+            opacity: 1;
             cursor: not-allowed;
+
+            box-shadow: none;
+            transform: none;
           }
         }
 
 
-        // Login hat zusätzliche Container
+        // ==================================
+        // LOGIN FORM CONTAINERS
+        // ==================================
+
         .form-top,
         .form-bottom {
           width: 100%;
@@ -367,9 +405,9 @@ $small-mobile-breakpoint: 360px;
       }
 
 
-      // ----------------------------------
+      // ==================================
       // FOOTER
-      // ----------------------------------
+      // ==================================
 
       .#{$prefix}-footer {
         display: flex;
@@ -386,12 +424,14 @@ $small-mobile-breakpoint: 360px;
         font-size: 0.82rem;
 
 
+        // Description
         p {
           margin: 0;
           color: var(--text-secondary);
         }
 
 
+        // Link
         a {
           color: var(--color-primary);
 
@@ -403,12 +443,13 @@ $small-mobile-breakpoint: 360px;
 
           &:hover {
             text-decoration: underline;
+            text-underline-offset: 3px;
           }
 
 
           &:focus-visible {
-            outline: 2px solid var(--color-primary);
-            outline-offset: 3px;
+            @include focus-ring;
+            border-radius: 3px;
           }
         }
       }
@@ -416,7 +457,22 @@ $small-mobile-breakpoint: 360px;
 
 
     // ====================================
-    // TABLETS & SMALL SCREENS
+    // TABLET
+    // Up to 768px
+    // ====================================
+
+    @media (max-width: $tablet-breakpoint) {
+      padding: 28px 20px;
+
+      .#{$prefix}-card {
+        padding: 32px;
+      }
+    }
+
+
+    // ====================================
+    // MOBILE
+    // Up to 600px
     // ====================================
 
     @media (max-width: $mobile-breakpoint) {
@@ -426,7 +482,19 @@ $small-mobile-breakpoint: 360px;
         padding: 28px 24px;
 
         .#{$prefix}-header {
+          gap: 16px;
           margin-bottom: 22px;
+
+          > div:first-child {
+            img {
+              width: 40px;
+              height: 40px;
+            }
+
+            h1 {
+              font-size: 1.4rem;
+            }
+          }
 
           > div:last-child {
             h2 {
@@ -434,12 +502,21 @@ $small-mobile-breakpoint: 360px;
             }
           }
         }
+
+        .#{$prefix}-form {
+          input {
+            // Verhindert automatisches Zoomen
+            // beim Fokussieren auf iPhones
+            font-size: 16px;
+          }
+        }
       }
     }
 
 
     // ====================================
-    // SMALL PHONES (300px+)
+    // SMALL MOBILE
+    // 300px - 360px
     // ====================================
 
     @media (max-width: $small-mobile-breakpoint) {
@@ -453,6 +530,13 @@ $small-mobile-breakpoint: 360px;
           gap: 14px;
 
           > div:first-child {
+            gap: 8px;
+
+            img {
+              width: 34px;
+              height: 34px;
+            }
+
             h1 {
               font-size: 1.15rem;
             }
@@ -470,9 +554,22 @@ $small-mobile-breakpoint: 360px;
         }
 
         .#{$prefix}-form {
-          input {
-            font-size: 0.85rem;
+          label {
+            font-size: 0.8rem;
           }
+
+          input {
+            height: 42px;
+            font-size: 16px;
+          }
+
+          button {
+            min-height: 44px;
+          }
+        }
+
+        .#{$prefix}-footer {
+          font-size: 0.78rem;
         }
       }
     }
@@ -481,8 +578,11 @@ $small-mobile-breakpoint: 360px;
 
 
 // ========================================
-// ACCESSIBILITY
+// 4. ACCESSIBILITY
 // ========================================
+
+// Animationen reduzieren, wenn der
+// Benutzer dies im Betriebssystem wünscht.
 
 @media (prefers-reduced-motion: reduce) {
   .login-page,
