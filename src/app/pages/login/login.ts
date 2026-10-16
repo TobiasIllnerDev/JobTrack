@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { ThemeService } from '../../services/theme';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -8,6 +9,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular
   templateUrl: './login.html',
 })
 export class Login {
+
+  themeService = inject(ThemeService);
+
   emailAdress = new FormControl('', [
     Validators.required,
     Validators.email

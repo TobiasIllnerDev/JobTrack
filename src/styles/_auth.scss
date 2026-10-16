@@ -1,9 +1,3 @@
-// ========================================
-// JOBTRACK NOVA
-// Authentication Design
-// Login & Registration
-// ========================================
-
 
 // ========================================
 // 1. SCSS VARIABLES
@@ -59,9 +53,6 @@ $transition-speed: 0.2s;
 // 3. SHARED AUTH STYLES
 // ========================================
 
-// Erstellt die Styles automatisch für:
-// login-page / login-card / ...
-// auth-page  / auth-card  / ...
 
 @each $prefix in login, auth {
 
@@ -103,6 +94,7 @@ $transition-speed: 0.2s;
     .#{$prefix}-card {
       display: flex;
       flex-direction: column;
+      position: relative;
 
       width: 100%;
       max-width: $max-card-width;
@@ -136,12 +128,67 @@ $transition-speed: 0.2s;
 
         text-align: center;
 
+        // ==================================
+        // THEME TOGGLE
+        // ==================================
+
+        .theme-toggle {
+          @include flex-center;
+          @include smooth-transition;
+
+          position: absolute;
+          top: 16px;
+          right: 16px;
+
+          width: 36px;
+          height: 36px;
+
+          padding: 0;
+
+          background: var(--bg-input);
+          color: var(--text-secondary);
+
+          border: 1px solid var(--color-border);
+          border-radius: 10px;
+
+          cursor: pointer;
+
+          svg {
+            width: 19px;
+            height: 19px;
+            flex-shrink: 0;
+          }
+
+          &:hover {
+            background: var(--bg-input);
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+
+            transform: translateY(-2px);
+
+            box-shadow:
+              0 4px 12px
+              color-mix(
+                in srgb,
+                var(--color-primary) 12%,
+                transparent
+              );
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+
+          &:focus-visible {
+            @include focus-ring;
+          }
+        }
 
         // ------------------------------
         // LOGO + BRAND
         // ------------------------------
 
-        > div:first-child {
+        > div:first-of-type {
           @include flex-center;
 
           gap: 10px;
@@ -485,7 +532,7 @@ $transition-speed: 0.2s;
           gap: 16px;
           margin-bottom: 22px;
 
-          > div:first-child {
+          > div:first-of-type {
             img {
               width: 40px;
               height: 40px;
@@ -529,7 +576,7 @@ $transition-speed: 0.2s;
         .#{$prefix}-header {
           gap: 14px;
 
-          > div:first-child {
+          > div:first-of-type {
             gap: 8px;
 
             img {
@@ -550,6 +597,21 @@ $transition-speed: 0.2s;
             p {
               font-size: 0.78rem;
             }
+          }
+        }
+
+        .theme-toggle {
+          top: 10px;
+          right: 10px;
+
+          width: 32px;
+          height: 32px;
+
+          border-radius: 8px;
+
+          svg {
+            width: 17px;
+            height: 17px;
           }
         }
 

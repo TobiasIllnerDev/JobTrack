@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
+import { ThemeService } from '../../services/theme';
 
 
 @Component({
@@ -9,6 +10,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators, AbstractContro
   templateUrl: './register.html',
 })
 export class Register {
+
+  themeService = inject(ThemeService);
+  
   emailAdress = new FormControl('', [
     Validators.required,
     Validators.email
