@@ -10,11 +10,16 @@ import { Settings } from './pages/settings/settings';
 export const routes: Routes = [
     {
         path: '',
-        component: Dashboard,
+        redirectTo: 'login',
+        pathMatch: 'full'
     },
     {
         path: 'login',
-        component: Login,
+        component: Login
+    },
+    {
+        path: 'dashboard',
+        component: Dashboard,
     },
     {
         path: 'board',
